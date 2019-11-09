@@ -1,0 +1,14 @@
+[
+    {"id": 0, "name": "Abby", "isClicked": false, "url": "./images/abby.jpeg"},
+    {"id": 1, "name": "Big Bird", "isClicked": false, "url": "./images/big_bird.png"},
+    {"id": 2, "name": "Cookie Monster", "isClicked": false, "url": "./images/cookie_monster.png"},
+    {"id": 3, "name": "Count", "isClicked": false, "url": "./images/count.jpeg"},
+    {"id": 4, "name": "Daniel Tiger", "isClicked": false, "url": "./images/daniel_tiger.jpeg"},
+    {"id": 5, "name": "Eeyore", "isClicked": false, "url": "./images/eeyore.png"},
+    {"id": 6, "name": "Elaina", "isClicked": false, "url": "./images/elaina.jpeg"},
+    {"id": 7, "name": "Elmo", "isClicked": false, "url": "./images/elmo.png"},
+    {"id": 8, "name": "Grover", "isClicked": false, "url": "./images/grover.png"},
+    {"id": 9, "name": "Kitty", "isClicked": false, "url": "./images/kitty.jpeg"},
+    {"id": 10, "name": "Owl", "isClicked": false, "url": "./images/owl.jpeg"},
+    {"id": 11, "name": "Piglet", "isClicked": false, "url": "./images/piglet.jpeg"}
+]
