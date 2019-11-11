@@ -1,3 +1,4 @@
+/* Main style for card and card:hover */
 .card {
     background: whitesmoke;
     border-radius: 2px;
@@ -20,6 +21,7 @@ img {
     object-fit: contain;
 }
 
+/* Following CSS handle the image shake feature if an incorrect guess is made */
 .img-shake {
   animation: shake 0.5s;
 }

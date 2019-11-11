@@ -1,3 +1,4 @@
+// Dependencies
 import React, { Component } from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar.js";
@@ -7,7 +8,7 @@ import images from "./images.json";
 
 
 class App extends Component {
-  // Setting this.state.friends to the friends json array
+  // Setting initial state values
   state = {
     images,
     score: 0,
@@ -15,6 +16,7 @@ class App extends Component {
     guess: ""
   };
 
+  // Shuffle Function
   shuffle = (array) => {
     let m = array.length, t, i;
   
@@ -32,6 +34,7 @@ class App extends Component {
     return array;
   }
 
+  // Function to check top score and compare it to current score...save new value to state if appropriate
   checkTopScore = () => {
     if (this.state.score > this.state.topScore) {
       this.setState({
@@ -40,37 +43,36 @@ class App extends Component {
     }
   }
 
+  // If guessed correctly...
   handleCorrectGuess = (newData) => {
-    // console.log("Inside Correct Guess");
     this.setState({ 
       images: this.shuffle(newData),
       score: this.state.score + 1,
       guess: true
     }, () => {
+      // Follow up to check top score value
       this.checkTopScore();
-      console.log(this.state.images);
     })
   }
 
+  // If guessed incorrectly...
   handleIncorrectGuess = (newData) => {
-    // console.log("Incorrect Guess!!!");
     this.setState({
       images: this.resetData(newData),
       score: 0,
       guess: false
-    }, () => {
-      console.log(this.state.images);
     })
   }
 
+  // What happens when an image is clicked
   handleSelect = (id) => {
-
+    // Initial value of guessed correctly set to false...will update if correct
     let guessedCorrectly = false;
+
+    // Make a copy of state.images and map over each item to see if the one you clicked has been clicked before
     const newData = this.state.images.map(item => {
       const newItem = {...item}
       if (id === newItem.id) {
-        console.log("This is the one I clicked");
-        console.log(newItem);
         if (!newItem.isClicked) {
           newItem.isClicked = true;
           guessedCorrectly = true;
@@ -78,16 +80,20 @@ class App extends Component {
       }
       return newItem;
     })
+
+    //Setting state with new value of isClicked true and then routing based on incorrect or correct guess.
     this.setState({ images: newData }, () => {
       (guessedCorrectly) ? this.handleCorrectGuess(this.state.images) : this.handleIncorrectGuess(this.state.images);
     });
   }
 
+  // Function to handle the reset of data once an incorrect guess is made
   resetData = (array) => {
     const images = this.shuffle(array.map(item => ({ ...item, isClicked: false })));
     return images; 
   }
 
+  // Render to the screen
   render() {
     return (
       <div>
@@ -99,6 +105,7 @@ class App extends Component {
         <Jumbotron />
           <div className="wrapper">
             <div className="row justify-content-center">
+              {/* Map through all the data to render images */}
               {this.state.images.map((item, i) => (
                 <Card
                   handleSelect={this.handleSelect}

@@ -1,10 +1,10 @@
+/* CSS for native tags */
 nav {
     background-color: #5133a4;
     padding: 20px 0px;
     color: white;
     font-weight: bold;
     text-align: center;
-    /* position: fixed; */
 }
 
 h1 {
@@ -12,6 +12,7 @@ h1 {
     line-height: 42px;
 }
 
+/* This keeps the nav bar stuck to the top of the screen */
 .sticky {
     position: fixed;
     top: 0;
@@ -19,6 +20,7 @@ h1 {
     z-index: 99;
 }
 
+/* The following handles the animation/transition indicated a correct or incorrect guess */
 @keyframes correct {
     from {color: white;}
     to {color: green;}
