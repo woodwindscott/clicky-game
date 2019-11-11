@@ -4,9 +4,37 @@ nav {
     color: white;
     font-weight: bold;
     text-align: center;
+    /* position: fixed; */
 }
 
 h1 {
     font-size: 28px;
     line-height: 42px;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+}
+
+@keyframes correct {
+    from {color: white;}
+    to {color: green;}
+}
+
+.green-text {
+    animation-name: correct;
+    animation-duration: 1s;
+}
+
+@keyframes incorrect {
+    from {color: white;}
+    to {color: red;}
+}
+
+.red-text {
+    animation-name: incorrect;
+    animation-duration: 1s;
 }

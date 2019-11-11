@@ -10,7 +10,9 @@ class App extends Component {
   // Setting this.state.friends to the friends json array
   state = {
     images,
-    initialImages: images
+    score: 0,
+    topScore: 0,
+    guess: ""
   };
 
   shuffle = (array) => {
@@ -27,20 +29,39 @@ class App extends Component {
       array[m] = array[i];
       array[i] = t;
     }
-  
     return array;
   }
 
-  handleCorrectGuess = () => {
-    console.log("Inside Correct Guess");
-    console.log(this.state.images);
+  checkTopScore = () => {
+    if (this.state.score > this.state.topScore) {
+      this.setState({
+        topScore: this.state.topScore + 1
+      })
+    }
+  }
+
+  handleCorrectGuess = (newData) => {
+    // console.log("Inside Correct Guess");
+    this.setState({ 
+      images: this.shuffle(newData),
+      score: this.state.score + 1,
+      guess: true
+    }, () => {
+      this.checkTopScore();
+      console.log(this.state.images);
+    })
   }
 
   handleIncorrectGuess = (newData) => {
-    console.log("Incorrect Guess!!!");
-    console.log(this.state.images);
+    // console.log("Incorrect Guess!!!");
+    this.setState({
+      images: this.resetData(newData),
+      score: 0,
+      guess: false
+    }, () => {
+      console.log(this.state.images);
+    })
   }
-
 
   handleSelect = (id) => {
 
@@ -49,57 +70,52 @@ class App extends Component {
       const newItem = {...item}
       if (id === newItem.id) {
         console.log("This is the one I clicked");
+        console.log(newItem);
         if (!newItem.isClicked) {
           newItem.isClicked = true;
           guessedCorrectly = true;
         }
       }
-      console.log(newItem)
       return newItem;
     })
-    // console.log(guessedCorrectly);
-    console.log(newData);
-    this.setState({ images: newData });
-    (guessedCorrectly) ? this.handleCorrectGuess(newData) : this.handleIncorrectGuess(newData);
+    this.setState({ images: newData }, () => {
+      (guessedCorrectly) ? this.handleCorrectGuess(this.state.images) : this.handleIncorrectGuess(this.state.images);
+    });
   }
-
 
   resetData = (array) => {
     const images = this.shuffle(array.map(item => ({ ...item, isClicked: false })));
-    // return this.shuffle(images);
-    this.setState({ images });
-    console.log("This is the new state:" + this.shuffle(this.state.images));
- 
-  };
+    return images; 
+  }
 
   render() {
     return (
       <div>
-        <Navbar />
+        <Navbar 
+          score={this.state.score}
+          topScore={this.state.topScore}
+          guess={this.state.guess}
+        />
         <Jumbotron />
-        <div className="row">
-        {this.state.images.map((item, i) => (
-            <Card
-              handleSelect={this.handleSelect}
-              key={item.id}
-              id={item.id}
-              index={i}
-              name={item.name}
-              src={item.url}
-            />
-          ))
-        }
-
-        {/* <button onClick={this.handleIncorrectGuess}>Reset</button> */}
-        {/* <button onClick={() => this.resetData(this.state.images)}>Reset</button> */}
-
-
-        </div>
-
-
+          <div className="wrapper">
+            <div className="row justify-content-center">
+              {this.state.images.map((item, i) => (
+                <Card
+                  handleSelect={this.handleSelect}
+                  guess={this.state.guess}
+                  key={item.id}
+                  id={item.id}
+                  index={i}
+                  name={item.name}
+                  src={item.url}
+                />
+              ))
+              }
+            </div>
+          </div>
       </div>
-  );
-}
+    );
+  }
 }
 
 export default App;

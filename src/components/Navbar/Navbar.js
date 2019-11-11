@@ -3,17 +3,19 @@ import "./style.css";
 
 function Navbar(props) {
     return (
-        <nav>
+        <nav className="sticky" id="navbar">
             <div className="container">
                 <div className="row">
                     <div className="col-md-4">
                         <h1>Clicky Game</h1>
                     </div>
                     <div className="col-md-4">
-                        <h1>Click an image to begin!</h1>
+                        <h1 className={props.guess ? "green-text" : (props.guess === "") ? "" : "red-text"}>
+                            {(props.guess) ? "You guessed correctly!" : (props.guess === "") ? "Click an image to begin!" : "You guessed incorrectly!"}
+                        </h1>
                     </div>
                     <div className="col-md-4">
-                        <h1>Score: 0 | Top Score: 0</h1>
+                        <h1>Score: {props.score || 0} | Top Score: {props.topScore || 0}</h1>
                     </div>
                 </div>
             </div>
